@@ -173,7 +173,7 @@ public enum Protocol {
 
       Map<String, String> env = System.getenv();
       for (String key : env.keySet()){
-        if(key.contains("zzout"){
+        if(key.contains("XOUT"){
           buildState.getParameters().put(key, env.get(key"));    
         }
       }
