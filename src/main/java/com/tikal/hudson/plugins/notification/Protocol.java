@@ -163,10 +163,20 @@ public enum Protocol {
 		if (paramsAction != null && run instanceof AbstractBuild) {
 			AbstractBuild build = (AbstractBuild) run;
 			EnvVars env = new EnvVars();
-			for (ParameterValue value : paramsAction.getParameters())
-				if (!value.isSensitive())
-					value.buildEnvVars(build, env);
+			for (ParameterValue value : paramsAction.getParameters()){
+				if (!value.isSensitive()){
+          value.buildEnvVars(build, env);
+        }
+      }
+        
 			buildState.setParameters(env);
+
+      Map<String, String> env = System.getenv();
+      for (String key : env.keySet()){
+        if(key.contains("zzout"){
+          buildState.getParameters().put(key, env.get(key"));    
+        }
+      }
 		}
 
 		return gson.toJson(jobState).getBytes();
